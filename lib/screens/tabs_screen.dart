@@ -27,7 +27,7 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_screens[_selectedScreenIndex] as String),
+        title: Text(_screens[_selectedScreenIndex]['title'] as String),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedScreenIndex,
@@ -37,14 +37,9 @@ class _TabsScreenState extends State<TabsScreen> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        // backgroundColor: Colors.cyan,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey[500],
         selectedFontSize: 15,
-        // showUnselectedLabels: true,
-        // unselectedFontSize: 12,
-        // iconSize: 30,
-        // showSelectedLabels: false,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -56,12 +51,10 @@ class _TabsScreenState extends State<TabsScreen> {
             label: 'Рацион дня',
           ),
           BottomNavigationBarItem(
-            //backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.fastfood),
             label: 'Рецепты',
           ),
           BottomNavigationBarItem(
-            //backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.fitness_center),
             label: 'Фитнес',
           ),
@@ -75,7 +68,9 @@ class _TabsScreenState extends State<TabsScreen> {
       drawer: const AppDrawer(),
       body: IndexedStack(
         index: _selectedScreenIndex,
-        children: _screens,
+        children: _screens.map((screenMap) {
+          return screenMap["screen"] as Widget;
+        }).toList(),
       ),
     );
   }
