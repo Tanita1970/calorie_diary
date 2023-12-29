@@ -17,7 +17,7 @@ class _TabsScreenState extends State<TabsScreen> {
   int _selectedScreenIndex = 0;
   final List<Map<String, Object>> _screens = [
     {'screen': MainScreen(), 'title': 'Главная'},
-    {'screen': DailyDietScreen(), 'title': 'Рацион дня'},
+    {'screen': DailyDietScreen(), 'title': 'Дневник'},
     {'screen': RecipeScreen(), 'title': 'Рецепты'},
     {'screen': FitnessScreen(), 'title': 'Фитнес'},
     {'screen': OtherScreen(), 'title': 'Дополнительно'},
@@ -48,7 +48,7 @@ class _TabsScreenState extends State<TabsScreen> {
           BottomNavigationBarItem(
             // backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.event_note_outlined),
-            label: 'Рацион дня',
+            label: 'Дневник',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
