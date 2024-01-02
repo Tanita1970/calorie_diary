@@ -1,9 +1,12 @@
 import 'package:calorie_diary/clients/calorizator_client_impl.dart';
 import 'package:calorie_diary/providers/meal.dart';
+import 'package:calorie_diary/providers/meals.dart';
 import 'package:calorie_diary/providers/products.dart';
+import 'package:calorie_diary/repository/MealRepository.dart';
 import 'package:calorie_diary/screens/search_food_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:calorie_diary/repository/MealRepository.dart';
 
 class MealWidget extends StatefulWidget {
   static const routeName = '/meal-widget';
@@ -22,20 +25,31 @@ class MealWidget extends StatefulWidget {
 class _MealWidgetState extends State<MealWidget> {
   bool isExpanded = false;
   List<CalorizatorShortFoodData> mealItems = [];
+
   CalorizatorShortFoodData _selectedProduct =
       CalorizatorShortFoodData(name: 'name', kcal: 0);
 
   _navigateToSearchProduct() async {
-    final meal = await Provider.of<Future<Meal>>(context, listen: false);
+    print('== 1 == Поиск в Калоризаторе!!!================================================');
+    final meal = await Provider.of<Meal>(context, listen: false);
+    // final meal = await Provider.of<Future<Meal>>(context, listen: false);
+    print('== 2 == Поиск в Калоризаторе!!!================================================');
+    var mealRepository = await Provider.of<MealRepository>(context, listen: false);
+    print('== 3 == Поиск в Калоризаторе!!!================================================');
     final result = await Navigator.of(context)
         .pushNamed(SearchFoodScreen.routeName) as CalorizatorShortFoodData;
-
+    print('== 4 == Поиск в Калоризаторе!!!================================================');
     setState(() {
       _selectedProduct = result;
-      meal.addProduct(UserProduct(
+      meal.addUserProduct(UserProduct(
           weightProduct: 0,
           product: Product.fromShortCalorizator(_selectedProduct)));
       mealItems.add(_selectedProduct);
+      print('meal.items======> ${meal.mealType} ${meal.mealDate} ${meal.items.map((e) => e.product.name)}');
+      print('mealItems======> $mealItems');
+      MealRepository().save(meal);
+      print('== 5 == Поиск в Калоризаторе!!!================================================');
+      // MealRepository().save(meal);
     });
   }
 

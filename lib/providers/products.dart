@@ -5,10 +5,10 @@ class Product {
   final String id;
   final String name;
   final String description;
-  final int kcal;
-  final int protein;
-  final int carbohydrate;
-  final int fat;
+  final double kcal;
+  final double protein;
+  final double carbohydrate;
+  final double fat;
 
   Product({
     required this.id,
@@ -17,28 +17,55 @@ class Product {
     required this.kcal,
     required this.protein,
     required this.carbohydrate,
-    required this.fat,});
+    required this.fat,
+  });
 
-  factory Product.fromCalorizator(CalorizatorFoodData calorizatorFoodData) {
-    return Product(id: calorizatorFoodData.name!,
-        name: calorizatorFoodData.name!,
-        description: calorizatorFoodData.description,
-        kcal: calorizatorFoodData.kcal.round(),
-        protein: calorizatorFoodData.protein.round(),
-        carbohydrate: calorizatorFoodData.carbohydrate.round(),
-        fat: calorizatorFoodData.fat.round()
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'kcal': kcal,
+      'protein': protein,
+      'carbohydrate': carbohydrate,
+      'fat': fat,
+    };
+  }
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['name'],
+      description: json['description'],
+      kcal: json['kcal'].toDouble(),
+      protein: json['protein'].toDouble(),
+      carbohydrate: json['carbohydrate'].toDouble(),
+      fat: json['fat'].toDouble(),
     );
   }
 
-  factory Product.fromShortCalorizator(CalorizatorShortFoodData calorizatorFoodData) {
-    return Product(id: calorizatorFoodData.name!,
+  factory Product.fromCalorizator(CalorizatorFoodData calorizatorFoodData) {
+    return Product(
+      id: calorizatorFoodData.name!,
+      name: calorizatorFoodData.name!,
+      description: calorizatorFoodData.description,
+      kcal: calorizatorFoodData.kcal,
+      protein: calorizatorFoodData.protein,
+      carbohydrate: calorizatorFoodData.carbohydrate,
+      fat: calorizatorFoodData.fat,
+    );
+  }
+
+  factory Product.fromShortCalorizator(
+      CalorizatorShortFoodData calorizatorFoodData) {
+    return Product(
+        id: calorizatorFoodData.name!,
         name: calorizatorFoodData.name!,
         description: "",
-        kcal: calorizatorFoodData.kcal.round(),
+        kcal: calorizatorFoodData.kcal,
         protein: 0,
         carbohydrate: 0,
-        fat: 0
-    );
+        fat: 0);
   }
 }
 
@@ -69,8 +96,20 @@ class UserProduct with ChangeNotifier {
 
   set weight(int newWeight) {
     weightProduct = newWeight;
-    // вызываем notifyListeners при изменении веса
     notifyListeners();
   }
-}
 
+  Map<String, dynamic> toJson() {
+    return {
+      'weightProduct': weightProduct,
+      'product': product.toJson,
+    };
+  }
+
+  factory UserProduct.fromJson(Map<String, dynamic> json) {
+    return UserProduct(
+      weightProduct: json['weightProduct'].toDouble,
+      product: json['product'],
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:calorie_diary/providers/meal.dart';
+import 'package:calorie_diary/providers/meals.dart';
 import 'package:calorie_diary/repository/MealRepository.dart';
 import 'package:calorie_diary/screens/search_food_screen.dart';
 import 'package:calorie_diary/screens/tabs_screen.dart';
@@ -24,6 +25,20 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider(create: (ctx) => SearchFoodScreen()),
         Provider(create: (ctx) => MealRepository()),
+        ChangeNotifierProvider(
+          create: (ctx) => Meal(
+            mealDate: DateTime.now(),
+            mealType: MealType.breakfast,
+            items: [],
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Meal(
+            mealDate: DateTime.now(),
+            mealType: MealType.lunch,
+            items: [],
+          ),
+        ),
       ],
       child: MaterialApp(
           title: 'Calorie diary',
