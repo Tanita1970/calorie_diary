@@ -6,62 +6,62 @@ import 'package:flutter/material.dart';
 
 class Meals with ChangeNotifier {
   List<Meal> _itemsMeals = [
-    Meal(
-      mealDate: DateTime.now(),
-      mealType: MealType.breakfast,
-      items: [
-        UserProduct(
-          weightProduct: 200,
-          product: Product(
-              id: 'p1',
-              name: 'Гречка',
-              description: 'Описание гречки',
-              kcal: 333,
-              protein: 12,
-              carbohydrate: 35,
-              fat: 2),
-        ),
-        UserProduct(
-          weightProduct: 200,
-          product: Product(
-              id: 'p2',
-              name: 'Рис',
-              description: 'Описание риса',
-              kcal: 360,
-              protein: 16,
-              carbohydrate: 50,
-              fat: 5),
-        ),
-      ],
-    ),
-    Meal(
-      mealDate: DateTime.now(),
-      mealType: MealType.dinner,
-      items: [
-        UserProduct(
-          weightProduct: 300,
-          product: Product(
-              id: 'p1',
-              name: 'Гречка',
-              description: 'Описание гречки',
-              kcal: 333,
-              protein: 12,
-              carbohydrate: 35,
-              fat: 2),
-        ),
-        UserProduct(
-          weightProduct: 300,
-          product: Product(
-              id: 'p2',
-              name: 'Рис',
-              description: 'Описание риса',
-              kcal: 360,
-              protein: 16,
-              carbohydrate: 50,
-              fat: 5),
-        ),
-      ],
-    ),
+  //   Meal(
+  //     mealDate: DateTime.now(),
+  //     mealType: MealType.breakfast,
+  //     items: [
+  //       UserProduct(
+  //         weightProduct: 200,
+  //         product: Product(
+  //             id: 'p1',
+  //             name: 'Гречка',
+  //             description: 'Описание гречки',
+  //             kcal: 333,
+  //             protein: 12,
+  //             carbohydrate: 35,
+  //             fat: 2),
+  //       ),
+  //       UserProduct(
+  //         weightProduct: 200,
+  //         product: Product(
+  //             id: 'p2',
+  //             name: 'Рис',
+  //             description: 'Описание риса',
+  //             kcal: 360,
+  //             protein: 16,
+  //             carbohydrate: 50,
+  //             fat: 5),
+  //       ),
+  //     ],
+  //   ),
+  //   Meal(
+  //     mealDate: DateTime.now(),
+  //     mealType: MealType.dinner,
+  //     items: [
+  //       UserProduct(
+  //         weightProduct: 300,
+  //         product: Product(
+  //             id: 'p1',
+  //             name: 'Гречка',
+  //             description: 'Описание гречки',
+  //             kcal: 333,
+  //             protein: 12,
+  //             carbohydrate: 35,
+  //             fat: 2),
+  //       ),
+  //       UserProduct(
+  //         weightProduct: 300,
+  //         product: Product(
+  //             id: 'p2',
+  //             name: 'Рис',
+  //             description: 'Описание риса',
+  //             kcal: 360,
+  //             protein: 16,
+  //             carbohydrate: 50,
+  //             fat: 5),
+  //       ),
+  //     ],
+  //   ),
   ];
 
   List<Meal> get itemsMeals {
@@ -70,8 +70,10 @@ class Meals with ChangeNotifier {
 
   Meal findByDateAndType(DateTime date, MealType type) {
     return _itemsMeals.firstWhere(
-        (element) => element.mealDate == date && element.mealType == type);
+        (element) => element.mealDate == date &&
+            element.mealType == type);
   }
+
 
   Future<void> addMeal(Meal meal) async {
     final url = Uri.parse(

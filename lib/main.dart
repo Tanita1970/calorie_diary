@@ -25,20 +25,6 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider(create: (ctx) => SearchFoodScreen()),
         Provider(create: (ctx) => MealRepository()),
-        ChangeNotifierProvider(
-          create: (ctx) => Meal(
-            mealDate: DateTime.now(),
-            mealType: MealType.breakfast,
-            items: [],
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => Meal(
-            mealDate: DateTime.now(),
-            mealType: MealType.lunch,
-            items: [],
-          ),
-        ),
       ],
       child: MaterialApp(
           title: 'Calorie diary',

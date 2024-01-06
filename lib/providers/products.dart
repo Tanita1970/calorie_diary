@@ -37,10 +37,10 @@ class Product {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      kcal: json['kcal'].toDouble(),
-      protein: json['protein'].toDouble(),
-      carbohydrate: json['carbohydrate'].toDouble(),
-      fat: json['fat'].toDouble(),
+      kcal: json['kcal'],
+      protein: json['protein'],
+      carbohydrate: json['carbohydrate'],
+      fat: json['fat'],
     );
   }
 
@@ -56,8 +56,7 @@ class Product {
     );
   }
 
-  factory Product.fromShortCalorizator(
-      CalorizatorShortFoodData calorizatorFoodData) {
+  factory Product.fromShortCalorizator(CalorizatorShortFoodData calorizatorFoodData) {
     return Product(
         id: calorizatorFoodData.name!,
         name: calorizatorFoodData.name!,
@@ -102,14 +101,14 @@ class UserProduct with ChangeNotifier {
   Map<String, dynamic> toJson() {
     return {
       'weightProduct': weightProduct,
-      'product': product.toJson,
+      'product': product.toJson(),
     };
   }
 
   factory UserProduct.fromJson(Map<String, dynamic> json) {
     return UserProduct(
-      weightProduct: json['weightProduct'].toDouble,
-      product: json['product'],
+      weightProduct: json['weightProduct'],
+      product: Product.fromJson(json['product']),
     );
   }
 }

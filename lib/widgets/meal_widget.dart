@@ -26,29 +26,45 @@ class _MealWidgetState extends State<MealWidget> {
   bool isExpanded = false;
   List<CalorizatorShortFoodData> mealItems = [];
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
   CalorizatorShortFoodData _selectedProduct =
       CalorizatorShortFoodData(name: 'name', kcal: 0);
 
   _navigateToSearchProduct() async {
-    print('== 1 == Поиск в Калоризаторе!!!================================================');
-    final meal = await Provider.of<Meal>(context, listen: false);
+    print(
+        '== 1 == Поиск в Калоризаторе!!!================================================');
+    final meal = await Provider.of<Future<Meal>>(context, listen: false);
     // final meal = await Provider.of<Future<Meal>>(context, listen: false);
-    print('== 2 == Поиск в Калоризаторе!!!================================================');
-    var mealRepository = await Provider.of<MealRepository>(context, listen: false);
-    print('== 3 == Поиск в Калоризаторе!!!================================================');
+    print(
+        '== 2 == Поиск в Калоризаторе!!!================================================');
+    var mealRepository =
+        await Provider.of<MealRepository>(context, listen: false);
+    print(
+        '== 3 == Поиск в Калоризаторе!!!================================================');
     final result = await Navigator.of(context)
         .pushNamed(SearchFoodScreen.routeName) as CalorizatorShortFoodData;
-    print('== 4 == Поиск в Калоризаторе!!!================================================');
+    print(
+        '== 4 == Поиск в Калоризаторе!!!================================================');
     setState(() {
       _selectedProduct = result;
       meal.addUserProduct(UserProduct(
           weightProduct: 0,
           product: Product.fromShortCalorizator(_selectedProduct)));
       mealItems.add(_selectedProduct);
-      print('meal.items======> ${meal.mealType} ${meal.mealDate} ${meal.items.map((e) => e.product.name)}');
+      print(
+          'meal.items======> ${meal.mealType} ${meal.mealDate} ${meal.items.map((e) => {
+                e.product.name,
+                e.weightProduct
+              })} ');
       print('mealItems======> $mealItems');
       MealRepository().save(meal);
-      print('== 5 == Поиск в Калоризаторе!!!================================================');
+      print(
+          '== 5 == Поиск в Калоризаторе!!!================================================');
       // MealRepository().save(meal);
     });
   }
@@ -102,7 +118,8 @@ class _MealWidgetState extends State<MealWidget> {
             padding: EdgeInsets.fromLTRB(15, 5, 5, 5),
             child: FutureBuilder(
               future: Provider.of<Future<Meal>>(context),
-              builder: (ctx, dataSnapshot) {
+              builder: (context, dataSnapshot) {
+                // тут стоял ctx вместо context
                 if (dataSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else {
@@ -117,7 +134,8 @@ class _MealWidgetState extends State<MealWidget> {
                       children: [
                         ...dataSnapshot.data!.items
                             .map((e) => Text(e.product.name))
-                            .toList()
+                            .toList(),
+                        Text('datadatadatadatadatadatadatadatadatadat'),
                       ],
                     );
                   }
