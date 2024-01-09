@@ -56,7 +56,8 @@ class Product {
     );
   }
 
-  factory Product.fromShortCalorizator(CalorizatorShortFoodData calorizatorFoodData) {
+  factory Product.fromShortCalorizator(
+      CalorizatorShortFoodData calorizatorFoodData) {
     return Product(
         id: calorizatorFoodData.name!,
         name: calorizatorFoodData.name!,

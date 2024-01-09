@@ -1,5 +1,3 @@
-import 'package:calorie_diary/providers/meal.dart';
-import 'package:calorie_diary/providers/meals.dart';
 import 'package:calorie_diary/repository/MealRepository.dart';
 import 'package:calorie_diary/screens/search_food_screen.dart';
 import 'package:calorie_diary/screens/tabs_screen.dart';

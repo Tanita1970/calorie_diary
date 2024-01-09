@@ -3,23 +3,24 @@ import 'package:calorie_diary/repository/MealRepository.dart';
 import 'package:flutter/material.dart';
 
 enum MealType {
-  breakfast,
-  lunch,
-  dinner,
-  snack,
+  breakfast("Завтрак"),
+  lunch("Обед"),
+  dinner("Ужин"),
+  snack("Перекус");
+
+  final String russianName;
+
+  const MealType(this.russianName);
+
+  static MealType parse(String type) {
+    return values.firstWhere(
+          (mealType) => mealType.toString() == type,
+    );
+  }
 }
 
-// String get mealTypeTitle {
-//   switch (type) {
-//     case MealType.breakfast: return 'Завтрак';
-//     case MealType.lunch: return 'Обед';
-//     case MealType.dinner: return 'Ужин';
-//     case MealType.snack: return 'Перекус';
-//     default: return 'Неопознанный приём пищи';
-//   }
-// }
-
 class Meal with ChangeNotifier {
+  String? id;
   final DateTime mealDate;
   final MealType mealType;
   final List<UserProduct> _items = List.empty(growable: true);
@@ -49,5 +50,24 @@ class Meal with ChangeNotifier {
       'mealType': mealType.toString(),
       'items': _items.map((item) => item.toJson()).toList(),
     };
+  }
+
+  factory Meal.fromJson(Map<String, dynamic> json) {
+    final mealDate = DateTime.parse(json['date']);
+    final mealType = MealType.parse(json['type']);
+
+    List<UserProduct> items = [];
+    if (json['items'] != null) {
+      var jsonItems = json['items'] as List<dynamic>;
+      for (var element in jsonItems) {
+        var mealMap = element as Map<String, dynamic>;
+        items.add(UserProduct.fromJson(mealMap));
+      }
+    }
+    return Meal(
+      mealDate: mealDate,
+      mealType: mealType,
+      items: items,
+    );
   }
 }
