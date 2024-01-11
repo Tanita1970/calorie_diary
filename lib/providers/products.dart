@@ -44,7 +44,7 @@ class Product {
     );
   }
 
-  factory Product.fromCalorizator(CalorizatorFoodData calorizatorFoodData) {
+  factory Product.fromCalorizator (CalorizatorFoodData calorizatorFoodData) {
     return Product(
       id: calorizatorFoodData.name!,
       name: calorizatorFoodData.name!,

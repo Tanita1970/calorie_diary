@@ -22,7 +22,7 @@ class MealWidget extends StatefulWidget {
 
 class _MealWidgetState extends State<MealWidget> {
   bool isExpanded = false;
-  List<CalorizatorShortFoodData> mealItems = [];
+  List<CalorizatorFoodData> mealItems = [];
 
   CalorizatorShortFoodData _selectedProduct =
       CalorizatorShortFoodData(name: 'name', kcal: 0);
@@ -33,13 +33,25 @@ class _MealWidgetState extends State<MealWidget> {
     final meal = await Provider.of<Future<Meal>>(context, listen: false);
     var mealRepository =
         await Provider.of<MealRepository>(context, listen: false);
-    setState(() {
-      _selectedProduct = result;
-      meal.addUserProduct(UserProduct(
+
+    _selectedProduct = result;
+    CalorizatorClientImpl().getProduct(_selectedProduct.name).then((value) {
+      meal.addUserProduct(
+        UserProduct(
           weightProduct: 0,
-          product: Product.fromShortCalorizator(_selectedProduct)));
-      mealItems.add(_selectedProduct);
-      mealRepository.save(meal);
+          product: Product.fromCalorizator(value),
+        ),
+      );
+      print('${value.name} '
+          '${value.description} '
+          '${value.carbohydrate} '
+          '${value.fat} '
+          '${value.protein}'
+          '${value.kcal} ');
+      setState(() {
+        mealItems.add(value);
+        mealRepository.save(meal);
+      });
     });
   }
 
@@ -107,7 +119,7 @@ class _MealWidgetState extends State<MealWidget> {
                     return Column(
                       children: [
                         ...dataSnapshot.data!.items
-                            .map((e) => Text(e.product.name))
+                            .map((e) => Text('${e.product.name} ${e.product.kcal}'))
                             .toList(),
                       ],
                     );
